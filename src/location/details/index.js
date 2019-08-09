@@ -1,0 +1,1 @@
+export { LocationDetailsContainer } from './container';

@@ -1,0 +1,1 @@
+export { NewCategoryContainer } from './container';
