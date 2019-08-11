@@ -5,23 +5,23 @@ import map from 'lodash/map'
 import filter from 'lodash/filter'
 
 import ListLocations from "./view"
-import { getLocations } from "../../store/entities/location";
 import { toggleIsSortAscending, setCategoryFilter, toggleGroupByCategory } from "./actions"
-import { getCategories } from "../../store/entities/category"
+import { selectCategories } from "../../store/entities/category"
+import { selectLocations } from "../../store/entities/location"
 
-const mapStateToProps = ({
-  entities: { locations, categories },
-  locationsList: { isSortAscending, categoryFilter, isGroupByCategory }
-}) => ({
-  locations: preparedLocations(getLocations(locations, categories), isSortAscending, categoryFilter),
-  groupedLocations: prepareGroupedLocations(getLocations(locations, categories), isSortAscending, categoryFilter, isGroupByCategory),
-  isSortAscending,
-  categoryFilterOptions: map(getCategories(categories), ({ id, name }) => ({
-    value: id,
-    label: name
-  })),
-  categoryFilter
-})
+const mapStateToProps = (state) => {
+  const {locationsList: {isSortAscending, categoryFilter, isGroupByCategory}} = state;
+  return {
+    locations: preparedLocations(selectLocations(state), isSortAscending, categoryFilter),
+    groupedLocations: prepareGroupedLocations(selectLocations(state), isSortAscending, categoryFilter, isGroupByCategory),
+    isSortAscending,
+    categoryFilterOptions: map(selectCategories(state), ({ id, name }) => ({
+      value: id,
+      label: name
+    })),
+    categoryFilter
+  }
+}
 
 const mapDispatchToProps = {
   onSortDirectionClicked: toggleIsSortAscending,
@@ -30,7 +30,7 @@ const mapDispatchToProps = {
 }
 
 const prepareGroupedLocations = (locationEntities, isSortAscending, categoryFilter, isGroupByCategory) => {
-  return isGroupByCategory && groupBy(locationEntities, ({ category: { id } }) => id)
+  return isGroupByCategory && groupBy(locationEntities, 'category.name')
 }
 
 const preparedLocations = (locationEntities, isSortAscending, categoryFilter) => {

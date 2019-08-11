@@ -1,2 +1,2 @@
-export const getCategories = (categories) => categories
-export const getCategory = (categories, categoryId) => categories[categoryId]
+export const selectCategories = ({entities: {categories}}) => categories
+export const selectCategory = (state, categoryId) => state.entities.categories[categoryId]

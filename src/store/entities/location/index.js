@@ -1,3 +1,3 @@
 export { addLocation } from './actions'
 export { locationsReducer } from './reducers'
-export { getLocations, getLocation } from './selectors'
+export { selectLocations, selectLocation } from './selectors'

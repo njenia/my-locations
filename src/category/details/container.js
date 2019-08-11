@@ -1,22 +1,16 @@
 import {connect} from "react-redux"
 
 import CategoryDetails from "./view"
-import { getCategory } from "../../store/entities/category";
+import { selectCategory } from "../../store/entities/category";
 
-const mapStateToProps = ({
-  entities: { categories }
-}, {
+const mapStateToProps = (state, {
   categoryId
 }) => ({
-  categoryDetails: getCategory(categories, categoryId)
+  categoryDetails: selectCategory(state, categoryId)
 })
 
 
-const mapDispatchToProps = ({
-
-}) => ({
-
-})
+const mapDispatchToProps = {}
 
 export const CategoryDetailsContainer = connect(
   mapStateToProps,

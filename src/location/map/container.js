@@ -1,14 +1,12 @@
 import {connect} from "react-redux"
 
 import LocationsMap from "./view"
-import { getLocations } from "../../store/entities/location";
+import { selectLocations } from "../../store/entities/location";
 import map from "lodash/map"
 import values from "lodash/values"
 
-const mapStateToProps = ({
-  entities: { locations, categories }
-}) => ({
-  markers: map(values(getLocations(locations, categories)), ({coords, name}) => ({
+const mapStateToProps = (state) => ({
+  markers: map(values(selectLocations(state)), ({coords, name}) => ({
     coords,
     title: name
   }))

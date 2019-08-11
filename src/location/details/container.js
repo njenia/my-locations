@@ -1,14 +1,12 @@
 import {connect} from "react-redux"
 
 import LocationDetails from "./view"
-import { getLocation } from "../../store/entities/location";
+import { selectLocation } from "../../store/entities/location";
 
-const mapStateToProps = ({
-  entities: { locations }
-}, {
+const mapStateToProps = (state, {
   locationId
 }) => ({
-  locationDetails: getLocation(locations, locationId)
+  locationDetails: selectLocation(state, locationId)
 })
 
 

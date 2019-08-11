@@ -1,10 +1,10 @@
 import map from 'lodash/map'
-import {getCategory} from "../category"
+import {selectCategory} from "../category"
 
-export const getLocations = (locations, categories) => (
-  map(locations, location => ({
+export const selectLocations = (state) => (
+  map(state.entities.locations, location => ({
     ...location,
-    category: getCategory(categories, location.category)
+    category: selectCategory(state, location.category)
   }))
 )
-export const getLocation = (locations, locationId) => locations[locationId]
+export const selectLocation = (state, locationId) => state.entities.locations[locationId]

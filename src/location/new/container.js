@@ -3,14 +3,12 @@ import values from 'lodash/values'
 import map from 'lodash/map'
 
 import NewLocation from "./view"
-import { getLocations, addLocation } from "../../store/entities/location";
-import {getCategories} from "../../store/entities/category"
+import { selectLocations, addLocation } from "../../store/entities/location";
+import {selectCategories} from "../../store/entities/category"
 
-const mapStateToProps = ({
-  entities: { locations, categories }
-}) => ({
-  locations: getLocations(locations, categories),
-  categoryOptions: map(values(getCategories(categories)), ({id, name}) => ({
+const mapStateToProps = (state) => ({
+  locations: selectLocations(state),
+  categoryOptions: map(values(selectCategories(state)), ({id, name}) => ({
     value: id,
     label: name
   }))
