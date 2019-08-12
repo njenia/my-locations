@@ -10,6 +10,8 @@ import ListItem from "@material-ui/core/ListItem/ListItem"
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import {withRouter} from "react-router"
 import LocationsListToolbar from "./components/locations-list-toolbar"
+import Typography from "@material-ui/core/Typography/Typography"
+import Toolbar from "@material-ui/core/Toolbar/Toolbar"
 
 
 export const ListLocations = ({
@@ -36,7 +38,9 @@ export const ListLocations = ({
       {
         !isEmpty(groupedLocations) ? map(toPairs(groupedLocations), ([categoryName, categoryLocations]) => (
           <React.Fragment>
-            <strong>{categoryName}</strong>
+            <Typography variant="h6" color="inherit">
+              {categoryName}
+            </Typography>
             <LocationsList locations={categoryLocations} onLocationClicked={onLocationClicked}/>
           </React.Fragment>
         )) : <LocationsList locations={locations} onLocationClicked={onLocationClicked}/>

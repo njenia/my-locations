@@ -1,3 +1,3 @@
-export { addLocation } from './actions'
+export { upsertLocation, deleteLocation } from './actions'
 export { locationsReducer } from './reducers'
-export { selectLocations, selectLocation } from './selectors'
+export { selectLocations, selectLocation, selectLocationsForCategory } from './selectors'

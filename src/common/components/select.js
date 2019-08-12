@@ -8,9 +8,10 @@ import React from "react"
 const MyLocationsSelect = ({
   options,
   handleChange,
+  initialValue,
   name
 }) => {
-  const [chosenValue, setChosenValue] = React.useState(null);
+  const [chosenValue, setChosenValue] = React.useState(initialValue);
 
   const handleInternalChange = ({target: { value }}) => {
     setChosenValue(value);
@@ -22,7 +23,7 @@ const MyLocationsSelect = ({
     onChange={handleInternalChange}
     name={name}
   >
-    <MenuItem value={null}></MenuItem>
+    <MenuItem value={null} />
     {
       map(options, ({value, label}) => (<MenuItem key={value} value={value}>{label}</MenuItem>))
     }

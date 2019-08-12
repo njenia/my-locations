@@ -1,9 +1,11 @@
 import React, {useEffect} from "react"
 import Typography from "@material-ui/core/Typography/Typography"
 import {withRouter} from "react-router"
+import Toolbar from "@material-ui/core/Toolbar/Toolbar"
+import Button from "@material-ui/core/Button/Button"
 
 
-export const LocationDetails = ({history, locationDetails, updateActionMenu}) => {
+export const LocationDetails = ({history, locationDetails, onClick, updateActionMenu}) => {
   useEffect(() => {
     updateActionMenu(locationDetails.name, [
       {label: "Map", clickHandler: () => history.push(`/locations/map/${locationDetails.id}`)},
@@ -12,20 +14,17 @@ export const LocationDetails = ({history, locationDetails, updateActionMenu}) =>
     ])
   }, [])
 
+  const handleClick = () => {
+    onClick(locationDetails.id);
+    history.push(`/locations`)
+  }
+
   return (
     <React.Fragment>
-      <Typography variant="h4" color="inherit">
-        {locationDetails.name}
+      <Typography variant="body1" color="inherit">
+        Are you sure you want to delete the location "{locationDetails.name}"?
       </Typography>
-      <Typography variant="h5" color="inherit">
-        {locationDetails.id}
-      </Typography>
-      <Typography variant="h5" color="inherit">
-        {locationDetails.address}
-      </Typography>
-      <Typography variant="h5" color="inherit">
-        {locationDetails.category.name}
-      </Typography>
+      <Button onClick={handleClick}>OK</Button>
     </React.Fragment>
   )
 }

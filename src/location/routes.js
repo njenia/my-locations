@@ -6,6 +6,8 @@ import {NewLocationContainer} from "./new"
 import {LocationDetailsContainer} from "./details"
 import {LocationsMapContainer} from "./map"
 import {SingleMapContainer} from "./single-map"
+import {EditLocationContainer} from "./edit"
+import {DeleteLocationContainer} from "./delete"
 
 const Locations = ({history, updateActionMenu}) => {
   return (
@@ -34,6 +36,20 @@ const Locations = ({history, updateActionMenu}) => {
                  updateActionMenu={updateActionMenu}
                  locationId={locationId}
                />}
+      />
+
+      <Route path="/locations/edit/:locationId" render={({match: {params: {locationId}}}) =>
+        <EditLocationContainer
+          updateActionMenu={updateActionMenu}
+          locationId={locationId}
+        />}
+      />
+
+      <Route path="/locations/delete/:locationId" render={({match: {params: {locationId}}}) =>
+        <DeleteLocationContainer
+          updateActionMenu={updateActionMenu}
+          locationId={locationId}
+        />}
       />
 
       <Route path="/locations/new" render={() =>

@@ -2,7 +2,7 @@ import React from "react"
 
 import Select from './select'
 
-const SelectFormikInput = ({field, form, options}) => {
+const SelectFormikInput = ({field, form, options, initialValue, nullValueLabel}) => {
   const handleChange = value => {
     form.setFieldValue(field.name, value)
   }
@@ -11,6 +11,7 @@ const SelectFormikInput = ({field, form, options}) => {
     handleChange={handleChange}
     name={field.name}
     options={options}
+    initialValue={initialValue}
   />)
 }
 

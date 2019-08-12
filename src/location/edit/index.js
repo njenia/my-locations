@@ -1,0 +1,1 @@
+export { EditLocationContainer } from './container';

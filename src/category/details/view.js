@@ -6,7 +6,8 @@ import {withRouter} from "react-router"
 export const CategoryDetails = ({history, categoryDetails, updateActionMenu}) => {
   useEffect(() => {
     updateActionMenu(categoryDetails.name, [
-      {label: "Edit", clickHandler: () => history.push(`/categories/edit/${categoryDetails.id}`)}
+      {label: "Edit", clickHandler: () => history.push(`/categories/edit/${categoryDetails.id}`)},
+      {label: "Delete", clickHandler: () => history.push(`/categories/delete/${categoryDetails.id}`)}
     ])
   }, [])
 

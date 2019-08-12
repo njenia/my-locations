@@ -56,11 +56,14 @@ const Container = styled.div`
 
 const StyledPage = styled.div`
   overflow-y: auto;
+  flex-grow: 1;
+  padding: 16px 0;
 `
 
 const PageContentContainer = styled.div`
   margin: 0 auto;
   width: 80%;
+  min-width: 500px;
 `
 
 const StyledActionMenu = styled.div`
@@ -68,7 +71,6 @@ const StyledActionMenu = styled.div`
 `
 
 const StyledMainNavigation = styled.div`
-  height: 70px;
 `
 
 

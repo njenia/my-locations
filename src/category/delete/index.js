@@ -1,0 +1,1 @@
+export { DeleteCategoryContainer } from './container';

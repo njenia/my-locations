@@ -1,6 +1,7 @@
-import {persistNewCategory} from "../../../common/utils/external-storage-api"
+import {externalDeleteCategory, persistCategory} from "../../../common/utils/external-storage-api"
 
-export const SET_CATEGORY= 'CATEGORY/SET'
+export const SET_CATEGORY = 'CATEGORY/SET'
+export const UNSET_CATEGORY = 'CATEGORY/DELETE'
 
 export function setCategory({ categoryId, category }) {
   return {
@@ -10,12 +11,28 @@ export function setCategory({ categoryId, category }) {
   }
 }
 
-export function addCategory(category) {
+export function unsetCategory({ locationId }) {
+  return {
+    type: UNSET_CATEGORY,
+    locationId
+  }
+}
+
+export function upsertCategory(category) {
   return async dispatch => {
-    const categoryId = persistNewCategory(category)
+    const categoryId = persistCategory(category)
     return dispatch(setCategory({
       categoryId,
       category
+    }))
+  }
+}
+
+export function deleteCategory(categoryId) {
+  return async dispatch => {
+    externalDeleteCategory(categoryId);
+    return dispatch(unsetCategory({
+      categoryId
     }))
   }
 }

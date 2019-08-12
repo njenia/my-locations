@@ -1,12 +1,12 @@
 import {connect} from "react-redux"
 
 import NewCategory from "./view"
-import { addCategory } from "../../store/entities/category";
+import { upsertCategory } from "../../store/entities/category";
 
 const mapStateToProps = ({}) => ({})
 
 const mapDispatchToProps = {
-  addCategory
+  upsertCategory
 }
 
 export const NewCategoryContainer = connect(

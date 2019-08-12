@@ -1,5 +1,4 @@
 import React, {useEffect} from "react"
-import Typography from "@material-ui/core/Typography/Typography"
 import {withRouter} from "react-router"
 import styled from "styled-components"
 import Map from "../../common/components/map"
@@ -7,7 +6,7 @@ import Map from "../../common/components/map"
 
 export const SingleMap = ({history, locationDetails, marker, updateActionMenu}) => {
   useEffect(() => {
-    updateActionMenu(locationDetails.name, [
+    updateActionMenu(`Map: ${locationDetails.name}`, [
       {label: "Edit", clickHandler: () => history.push(`/locations/edit/${locationDetails.id}`)}
     ])
   }, [])
@@ -16,7 +15,7 @@ export const SingleMap = ({history, locationDetails, marker, updateActionMenu}) 
 }
 
 const MapContainer = styled(Map)`
-  height: 90%;
+  height: 400px;
   width: 80%;
 `
 

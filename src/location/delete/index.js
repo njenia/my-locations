@@ -1,0 +1,1 @@
+export { DeleteLocationContainer } from './container';

@@ -1,0 +1,1 @@
+export { EditCategoryContainer } from './container';

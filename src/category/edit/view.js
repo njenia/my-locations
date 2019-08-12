@@ -3,14 +3,14 @@ import {withRouter} from "react-router"
 
 import UpsertCategory from "../common/components/upsert-category-view"
 
-export const NewCategory = ({history, upsertCategory, updateActionMenu}) => {
+export const EditCategory = ({history, category, upsertCategory, updateActionMenu}) => {
   useEffect(() => {
     updateActionMenu('Categories', [
       {label: "List", clickHandler: () => history.push('/categories')},
     ])
   }, [])
 
-  return <UpsertCategory onSubmit={upsertCategory} />
+  return <UpsertCategory initialValues={category} onSubmit={upsertCategory} />
 }
 
-export default withRouter(NewCategory)
+export default withRouter(EditCategory)
