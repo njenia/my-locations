@@ -9,7 +9,7 @@ import {Categories} from './category'
 import store from './store'
 import ActionMenu from "./action-menu"
 
-const App = ({history}) => {
+const App = () => {
   const [actionsConfig, setActionsConfig] = useState({})
 
   return (
