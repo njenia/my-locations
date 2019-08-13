@@ -1,4 +1,6 @@
-import {generateId} from "./id-generator"
+import keys from 'lodash/keys'
+
+import {generateId, generateUniqueId} from "./id-generator"
 
 const LOCATIONS = 'locations'
 const CATEGORIES = 'categories'
@@ -7,13 +9,7 @@ const MY_LOCATIONS_DATA_INITIALIZED = 'my_locations_data_initialized'
 export const persistLocation = (location) => {
   const allLocations = JSON.parse(localStorage.getItem(LOCATIONS))
   if (!location.id) {
-    let locationId = generateId()
-    let existingItem = allLocations[locationId]
-    while (existingItem) {
-      locationId = generateId()
-      existingItem = allLocations[locationId]
-    }
-    location.id = locationId
+    location.id = generateUniqueId(keys(allLocations))
   }
   const updatedLocations = JSON.stringify({
     ...allLocations,
@@ -27,13 +23,7 @@ export const persistLocation = (location) => {
 export const persistCategory = (category) => {
   const allCategories = JSON.parse(localStorage.getItem(CATEGORIES))
   if (!category.id) {
-    let categoryId = generateId()
-    let existingItem = allCategories[categoryId]
-    while (existingItem) {
-      categoryId = generateId()
-      existingItem = allCategories[categoryId]
-    }
-    category.id = categoryId
+    category.id = generateUniqueId(keys(allCategories))
   }
   const updatedCategories = JSON.stringify({
     ...allCategories,

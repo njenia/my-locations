@@ -1,15 +1,18 @@
 import React from "react"
 import {Button,} from '@material-ui/core'
-import {TextField,} from 'formik-material-ui'
-import {Field, Form, Formik} from 'formik'
+import {Formik} from 'formik'
+import styled from 'styled-components'
+import size from 'lodash/size'
 
-export const UpsertCategory = ({initialValues={}, onSubmit}) => {
+import TextField from '../../../common/components/text-field'
+import {FieldContainer, FormActionContainer, StyledForm} from "../../../common/components/styled-form"
+import Typography from "@material-ui/core/Typography/Typography"
+
+export const UpsertCategory = ({initialValues = {}, onSubmit}) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => {
-        onSubmit(values)
-      }}
+      onSubmit={onSubmit}
     >
       {({
           values,
@@ -17,24 +20,34 @@ export const UpsertCategory = ({initialValues={}, onSubmit}) => {
           handleChange,
           handleSubmit
         }) => (
-        <Form>
-          <div>
-            <Field
+        <StyledForm>
+          <IntroTextContainer>
+            <Typography variant="body1">
+              Please fill all of the fields below:
+            </Typography>
+          </IntroTextContainer>
+          <FieldContainer>
+            <TextField
               name="name"
-              type="text"
               label="Name"
-              component={TextField}
+              placeholder="e.g. Kid-friendly restaurants"
               value={values.name}
             />
-          </div>
+          </FieldContainer>
 
-          <Button onClick={handleSubmit}>
-            Submit
-          </Button>
-        </Form>
+          <FormActionContainer>
+            <Button onClick={handleSubmit} disabled={size(values.name) === 0} variant="contained" color="primary">
+              Submit
+            </Button>
+          </FormActionContainer>
+        </StyledForm>
       )}
     </Formik>
   )
 }
+
+const IntroTextContainer = styled.div`
+  margin-bottom: 15px;
+`
 
 export default UpsertCategory

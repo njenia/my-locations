@@ -1,1 +1,0 @@
-export { LocationsMapContainer } from './container';

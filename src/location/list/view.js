@@ -11,57 +11,104 @@ import LocationOnIcon from '@material-ui/icons/LocationOn'
 import {withRouter} from "react-router"
 import LocationsListToolbar from "./components/locations-list-toolbar"
 import Typography from "@material-ui/core/Typography/Typography"
-import Toolbar from "@material-ui/core/Toolbar/Toolbar"
+import NoDataContainer from "../../common/components/no-data-container"
 
 
 export const ListLocations = ({
-                                history, locations, onLocationClicked, updateActionMenu, isSortAscending,
-                                onSortDirectionClicked, categoryFilterOptions, categoryFilter, onCategoryFilterChange, onGroupClicked,
-                                groupedLocations
-                              }) => {
+  history,
+  locations,
+  onLocationClicked,
+  updateActionMenu,
+  isSortAscending,
+  onSortDirectionClicked,
+  categoryFilterOptions,
+  categoryFilter,
+  onCategoryFilterChange,
+  onGroupClicked,
+  groupedLocations,
+  resetToolbar
+}) => {
+  const generalActionsConfig = [
+    {label: "List", clickHandler: () => history.push('/locations'), disabled: true},
+    {label: "New", clickHandler: () => history.push('/locations/new')}
+  ]
   useEffect(() => {
-    updateActionMenu('Locations', [
-      {label: "List", clickHandler: () => history.push('/locations')},
-      {label: "Map", clickHandler: () => history.push('/locations/map')},
-      {label: "New", clickHandler: () => history.push('/locations/new')}
-    ])
+    updateActionMenu('Locations', generalActionsConfig)
+    return () => {
+      resetToolbar()
+    }
   }, [])
+
+  const locationSelected = location => {
+    if (location) {
+      updateActionMenu(location.name, [
+        {label: "Details", clickHandler: () => history.push(`/locations/details/${location.id}`)},
+        {label: "Map", clickHandler: () => history.push(`/locations/map/${location.id}`)},
+        {label: "Edit", clickHandler: () => history.push(`/locations/edit/${location.id}`)},
+        {label: "Delete", clickHandler: () => history.push(`/locations/delete/${location.id}`)},
+      ])
+    } else {
+      updateActionMenu('Locations', generalActionsConfig)
+    }
+  }
+
+  if (isEmpty(locations) && !categoryFilter) {
+    return <NoDataContainer><Typography variant="h5">No locations yet :(</Typography></NoDataContainer>
+  }
+
+  const nonGroupedView = (isEmpty(locations) && categoryFilter) ?
+    <Typography variant="body1">No locations in this filter</Typography> :
+    <LocationsList locations={locations} onLocationSelected={locationSelected} showCategoryLabel/>
 
   return (
     <React.Fragment>
       <LocationsListToolbar isSortAscending={isSortAscending}
-                          categoryFilterOptions={categoryFilterOptions}
-                          onCategoryFilterChange={onCategoryFilterChange}
-                          onGroupClicked={onGroupClicked}
-                          onSortDirectionClicked={onSortDirectionClicked}
+                            categoryFilterOptions={categoryFilterOptions}
+                            onCategoryFilterChange={onCategoryFilterChange}
+                            onGroupClicked={onGroupClicked}
+                            onSortDirectionClicked={onSortDirectionClicked}
+                            isGroupedLocations={!isEmpty(groupedLocations)}
       />
       {
-        !isEmpty(groupedLocations) ? map(toPairs(groupedLocations), ([categoryName, categoryLocations]) => (
-          <React.Fragment>
-            <Typography variant="h6" color="inherit">
-              {categoryName}
-            </Typography>
-            <LocationsList locations={categoryLocations} onLocationClicked={onLocationClicked}/>
-          </React.Fragment>
-        )) : <LocationsList locations={locations} onLocationClicked={onLocationClicked}/>
+        isEmpty(groupedLocations) ?
+          nonGroupedView :
+          map(toPairs(groupedLocations), ([categoryName, categoryLocations]) => (
+            <React.Fragment>
+              <Typography variant="h6">
+                {categoryName}
+              </Typography>
+              <LocationsList locations={categoryLocations} onLocationSelected={locationSelected}/>
+            </React.Fragment>
+          ))
       }
     </React.Fragment>
   )
 }
 
-const LocationsList = ({locations, onLocationClicked}) => (
-  <List component="nav">
-    {
-      map(values(locations), location => (
-        <ListItem button key={location.id} onClick={() => onLocationClicked(location.id)}>
-          <ListItemIcon>
-            <LocationOnIcon/>
-          </ListItemIcon>
-          <ListItemText primary={location.name} secondary={location.category.name}/>
-        </ListItem>
-      ))
-    }
-  </List>
-)
+const LocationsList = ({locations, onLocationSelected, showCategoryLabel}) => {
+  const [selectedId, setSelectedId] = useState(null)
+  return (
+    <List component="nav">
+      {
+        map(values(locations), location => (
+          <ListItem button selected={location.id === selectedId} key={location.id} onClick={() => {
+            if (selectedId === location.id) {
+              setSelectedId(null)
+              onLocationSelected(null)
+            } else {
+              setSelectedId(location.id)
+              onLocationSelected(location)
+            }
+          }}>
+            <ListItemIcon>
+              <LocationOnIcon/>
+            </ListItemIcon>
+            <ListItemText primary={location.name} secondary={showCategoryLabel && location.category.name}/>
+          </ListItem>
+        ))
+      }
+    </List>
+  )
+}
 
 export default withRouter(ListLocations)

@@ -12,28 +12,35 @@ const LocationsListToolbar = ({
   onSortDirectionClicked,
   categoryFilterOptions,
   onCategoryFilterChange,
-  onGroupClicked
+  onGroupClicked,
+  isGroupedLocations
 }) => (
   <ToolbarContainer>
     <ToolbarElementContainer>
-      <ToolbarElementLabel>Sort by location name</ToolbarElementLabel>
-      <SortDirectionIcon isSortAscending={isSortAscending} onSortDirectionClicked={onSortDirectionClicked}/>
-    </ToolbarElementContainer>
-    <ToolbarElementContainer>
-      <ToolbarElementLabel>Filter by category</ToolbarElementLabel>
-      <SelectContainer>
-        <Select options={categoryFilterOptions} handleChange={onCategoryFilterChange}/>
-      </SelectContainer>
-    </ToolbarElementContainer>
-    <ToolbarElementContainer>
       <Checkbox label="Group by category" handleChange={onGroupClicked}/>
     </ToolbarElementContainer>
+    <ToolbarElementContainer>
+      <ToolbarElementLabel clickable isDisabled={isGroupedLocations} onClick={onSortDirectionClicked}>
+        Sort by location name
+      </ToolbarElementLabel>
+      <SortDirectionIcon isSortAscending={isSortAscending}
+                         onSortDirectionClicked={onSortDirectionClicked}
+                         isDisabled={isGroupedLocations}
+      />
+    </ToolbarElementContainer>
+      <SelectContainer>
+        <Select options={categoryFilterOptions}
+                handleChange={onCategoryFilterChange}
+                emptyLabel="Filter by category"
+                isDisabled={isGroupedLocations}
+        />
+      </SelectContainer>
   </ToolbarContainer>
 )
 
 
-const SortDirectionIcon = ({isSortAscending, onSortDirectionClicked}) => (
-  <SortDirectionIconContainer onClick={onSortDirectionClicked}>
+const SortDirectionIcon = ({isSortAscending, onSortDirectionClicked, isDisabled}) => (
+  <SortDirectionIconContainer isDisabled={isDisabled} onClick={onSortDirectionClicked}>
     {isSortAscending ? <ArrowDropDownIcon fontSize="large"/> :
       <ArrowDropUpIcon fontSize="large"/>}
   </SortDirectionIconContainer>
@@ -56,11 +63,13 @@ const ToolbarElementContainer = styled.div`
 const ToolbarElementLabel = styled(Typography).attrs({
   variant: 'body1'
 })`
-  
+  ${props => props.isDisabled ? 'color: #b6b6b6;' : ''}
+  ${props => props.clickable ? 'cursor: pointer;' : ''}
 `
 
 const SortDirectionIconContainer = styled.div`
   cursor: pointer;
+  ${props => props.isDisabled ? 'pointer-events: none; color: #b6b6b6;' : ''}
 `
 
 const SelectContainer = styled.div`

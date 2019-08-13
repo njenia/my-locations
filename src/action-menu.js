@@ -9,12 +9,12 @@ const ActionMenu = ({ title, actions }) => {
   return ( 
     <AppBar position="static" color="default">
       <Toolbar>
-        <Typography variant="h6" color="inherit">
+        <Typography variant="h6">
           {title}
         </Typography>
         {
-          map(actions, ({label, clickHandler}) => (
-            <Button onClick={clickHandler}>
+          map(actions, ({label, clickHandler, disabled}) => (
+            <Button disabled={disabled} onClick={clickHandler}>
               {label}
             </Button>
           ))

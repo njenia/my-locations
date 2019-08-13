@@ -12,7 +12,7 @@ const mapStateToProps = (state, {
 })
 
 const mapDispatchToProps = {
-  onClick: deleteCategory
+  deleteCategory
 }
 
 export const DeleteCategoryContainer = connect(

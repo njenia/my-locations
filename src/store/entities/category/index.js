@@ -1,3 +1,3 @@
 export { upsertCategory, deleteCategory } from './actions'
 export { categoriesReducer } from './reducers'
-export { selectCategories, selectCategory } from './selectors'
+export { selectCategories, selectCategory, selectCategoriesWithLocationCount } from './selectors'

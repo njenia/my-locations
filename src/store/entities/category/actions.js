@@ -11,10 +11,10 @@ export function setCategory({ categoryId, category }) {
   }
 }
 
-export function unsetCategory({ locationId }) {
+export function unsetCategory({ categoryId }) {
   return {
     type: UNSET_CATEGORY,
-    locationId
+    categoryId
   }
 }
 

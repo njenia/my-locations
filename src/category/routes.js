@@ -25,6 +25,9 @@ const Categories = ({history, updateActionMenu}) => {
                <CategoryDetailsContainer
                  updateActionMenu={updateActionMenu}
                  categoryId={categoryId}
+                 onLocationClicked={locationId => {
+                   history.push(`/locations/details/${locationId}`)
+                 }}
                />}
       />
 
@@ -32,6 +35,9 @@ const Categories = ({history, updateActionMenu}) => {
       <Route path="/categories/new" render={() =>
         <NewCategoryContainer
           updateActionMenu={updateActionMenu}
+          onSubmit={() => {
+            history.push(`/categories`)
+          }}
         />}
       />
 
@@ -39,6 +45,9 @@ const Categories = ({history, updateActionMenu}) => {
         <EditCategoryContainer
           updateActionMenu={updateActionMenu}
           categoryId={categoryId}
+          onSubmit={() => {
+            history.push(`/categories`)
+          }}
         />}
       />
 
@@ -46,6 +55,12 @@ const Categories = ({history, updateActionMenu}) => {
         <DeleteCategoryContainer
           updateActionMenu={updateActionMenu}
           categoryId={categoryId}
+          onLocationClicked={locationId => {
+            history.push(`/locations/details/${locationId}`)
+          }}
+          onSubmit={() => {
+            history.push(`/categories`)
+          }}
         />}
       />
     </Switch>

@@ -63,6 +63,7 @@ const StyledPage = styled.div`
 const PageContentContainer = styled.div`
   margin: 0 auto;
   width: 80%;
+  height: 100%;
   min-width: 500px;
 `
 

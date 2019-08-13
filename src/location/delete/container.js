@@ -11,7 +11,7 @@ const mapStateToProps = (state, {
 
 
 const mapDispatchToProps = {
-  onClick: deleteLocation
+  deleteLocation
 }
 
 export const DeleteLocationContainer = connect(

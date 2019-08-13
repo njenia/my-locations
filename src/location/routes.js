@@ -4,7 +4,6 @@ import {Route, Switch, withRouter} from "react-router-dom"
 import {ListLocationsContainer} from './list'
 import {NewLocationContainer} from "./new"
 import {LocationDetailsContainer} from "./details"
-import {LocationsMapContainer} from "./map"
 import {SingleMapContainer} from "./single-map"
 import {EditLocationContainer} from "./edit"
 import {DeleteLocationContainer} from "./delete"
@@ -16,7 +15,8 @@ const Locations = ({history, updateActionMenu}) => {
              render={() =>
                <ListLocationsContainer
                  onLocationClicked={locationId => {
-                   history.push(`/locations/details/${locationId}`)
+                   window.navigator.vibrate(200);
+                   history.push(`/locations/details/${locationId}`);
                  }}
                  updateActionMenu={updateActionMenu}
                />}
@@ -42,6 +42,9 @@ const Locations = ({history, updateActionMenu}) => {
         <EditLocationContainer
           updateActionMenu={updateActionMenu}
           locationId={locationId}
+          onFormSubmit={() => {
+            history.push(`/locations`)
+          }}
         />}
       />
 
@@ -49,18 +52,18 @@ const Locations = ({history, updateActionMenu}) => {
         <DeleteLocationContainer
           updateActionMenu={updateActionMenu}
           locationId={locationId}
+          onFormSubmit={() => {
+            history.push(`/locations`)
+          }}
         />}
       />
 
       <Route path="/locations/new" render={() =>
         <NewLocationContainer
           updateActionMenu={updateActionMenu}
-        />}
-      />
-
-      <Route exact path="/locations/map" render={() =>
-        <LocationsMapContainer
-          updateActionMenu={updateActionMenu}
+          onFormSubmit={() => {
+            history.push(`/locations`)
+          }}
         />}
       />
     </Switch>
