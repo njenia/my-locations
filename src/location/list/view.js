@@ -38,6 +38,7 @@ export const ListLocations = ({
   }, [])
 
   const onLocationSelected = locationId => {
+    window.navigator.vibrate(200);
     if (selectedLocationId === locationId) {
       setSelectedLocationId(null)
       updateActionMenu('locations.noneSelected')

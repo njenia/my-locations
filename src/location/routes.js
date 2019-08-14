@@ -14,10 +14,6 @@ const Locations = ({history, updateActionMenu}) => {
       <Route exact path="/locations"
              render={() =>
                <ListLocationsContainer
-                 onLocationClicked={locationId => {
-                   window.navigator.vibrate(200);
-                   history.push(`/locations/details/${locationId}`);
-                 }}
                  updateActionMenu={updateActionMenu}
                />}
       />

@@ -11,6 +11,7 @@ import store from './store'
 import ActionMenu from "./action-menu"
 import locationsActionsMenuPresets from './location/action-menu-presets'
 import categoriesActionsMenuPresets from './category/action-menu-presets'
+import {Redirect} from "react-router"
 
 const App = () => {
   const [actionMenuPreset, setActionMenuPreset] = useState({preset: locationsActionsMenuPresets['locations.noneSelected']})
@@ -37,6 +38,7 @@ const App = () => {
 
         <StyledPage>
           <PageContentContainer>
+            <Redirect exact from="/" to="/locations" />
             <Route path="/locations" render={() => <Locations updateActionMenu={partial(updateActionMenu, '/locations')}/>}/>
             <Route path="/categories" render={() => <Categories updateActionMenu={partial(updateActionMenu, '/categories')}/>}/>
           </PageContentContainer>
