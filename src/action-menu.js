@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import map from "lodash/map";
 import { withRouter } from "react-router";
 import styled from "styled-components";
+import MediaQuery from 'react-responsive'
 
 const ActionMenu = ({
   mainActionUrl,
@@ -25,7 +26,9 @@ const ActionMenu = ({
             onClick={() => history.push(getUrl(params))}
           >
             {Icon && <Icon/>}
-            {label}
+            <MediaQuery minWidth={500}>
+              {label}
+            </MediaQuery>
           </Button>
         ))}
       </Toolbar>
