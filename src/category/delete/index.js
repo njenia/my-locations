@@ -1,1 +1,1 @@
-export { DeleteCategoryContainer } from './container';
+export { DeleteCategoryContainer } from "./container";

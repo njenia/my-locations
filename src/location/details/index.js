@@ -1,1 +1,1 @@
-export { LocationDetailsContainer } from './container';
+export { LocationDetailsContainer } from "./container";

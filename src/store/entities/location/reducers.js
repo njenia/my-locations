@@ -1,4 +1,4 @@
-import {SET_LOCATION, UNSET_LOCATION} from './actions'
+import { SET_LOCATION, UNSET_LOCATION } from "./actions";
 
 export const locationsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -6,11 +6,11 @@ export const locationsReducer = (state = {}, action) => {
       return {
         ...state,
         [action.location.id]: action.location
-      }
+      };
     case UNSET_LOCATION:
       delete state[action.locationId];
       return state;
     default:
-      return state
+      return state;
   }
-}
+};

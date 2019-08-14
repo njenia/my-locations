@@ -1,8 +1,8 @@
-import {TextField} from "formik-material-ui"
-import {Field} from "formik"
-import React from "react"
+import { TextField } from "formik-material-ui";
+import { Field } from "formik";
+import React from "react";
 
-const MyLocationsTextField = (props) => (
+const MyLocationsTextField = props => (
   <Field
     {...props}
     component={TextField}
@@ -12,6 +12,6 @@ const MyLocationsTextField = (props) => (
       backgroundColor: "#ffffff"
     }}
   />
-)
+);
 
-export default MyLocationsTextField
+export default MyLocationsTextField;

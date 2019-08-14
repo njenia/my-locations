@@ -1,47 +1,47 @@
 const newActionConfig = {
-  getUrl: () => '/categories/new',
-  label: 'New'
-}
+  getUrl: () => "/categories/new",
+  label: "New"
+};
 
 const detailsActionConfig = {
-  getUrl: ({categoryId}) => `/categories/details/${categoryId}`,
-  label: 'Details'
-}
+  getUrl: ({ categoryId }) => `/categories/details/${categoryId}`,
+  label: "Details"
+};
 
 const editActionConfig = {
-  getUrl: ({categoryId}) => `/categories/edit/${categoryId}`,
-  label: 'Edit'
-}
+  getUrl: ({ categoryId }) => `/categories/edit/${categoryId}`,
+  label: "Edit"
+};
 
 const deleteActionConfig = {
-  getUrl: ({categoryId}) => `/categories/delete/${categoryId}`,
-  label: 'Delete'
-}
+  getUrl: ({ categoryId }) => `/categories/delete/${categoryId}`,
+  label: "Delete"
+};
 
 const disabled = config => ({
   ...config,
   disabled: true
-})
+});
 
 const actionsMenuPresets = {
-  'categories.noneSelected': {
-    title: 'Categories',
+  "categories.noneSelected": {
+    title: "Categories",
     actions: [
       newActionConfig,
       disabled(detailsActionConfig),
       disabled(editActionConfig),
-      disabled(deleteActionConfig),
+      disabled(deleteActionConfig)
     ]
   },
-  'categories.oneSelected': {
-    title: 'Categories',
+  "categories.oneSelected": {
+    title: "Categories",
     actions: [
       disabled(newActionConfig),
       detailsActionConfig,
       editActionConfig,
-      deleteActionConfig,
+      deleteActionConfig
     ]
   }
-}
+};
 
 export default actionsMenuPresets;

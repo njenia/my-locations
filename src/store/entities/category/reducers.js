@@ -1,5 +1,4 @@
-import {SET_CATEGORY, UNSET_CATEGORY} from './actions'
-
+import { SET_CATEGORY, UNSET_CATEGORY } from "./actions";
 
 export const categoriesReducer = (state = {}, action) => {
   switch (action.type) {
@@ -7,11 +6,11 @@ export const categoriesReducer = (state = {}, action) => {
       return {
         ...state,
         [action.category.id]: action.category
-      }
+      };
     case UNSET_CATEGORY:
       delete state[action.categoryId];
       return state;
     default:
-      return state
+      return state;
   }
-}
+};

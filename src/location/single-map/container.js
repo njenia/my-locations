@@ -1,18 +1,15 @@
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 
-import SingleMap from "./view"
+import SingleMap from "./view";
 import { selectLocation } from "../../store/entities/location";
 
-const mapStateToProps = (state, {
-  locationId
-}) => ({
+const mapStateToProps = (state, { locationId }) => ({
   locationDetails: selectLocation(state, locationId)
-})
+});
 
-
-const mapDispatchToProps = {}
+const mapDispatchToProps = {};
 
 export const SingleMapContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SingleMap)
+)(SingleMap);

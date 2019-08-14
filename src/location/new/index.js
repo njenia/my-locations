@@ -1,1 +1,1 @@
-export { NewLocationContainer } from './container';
+export { NewLocationContainer } from "./container";

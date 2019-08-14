@@ -1,2 +1,2 @@
-export { locationsListReducer } from './reducers';
-export { ListLocationsContainer } from './container';
+export { locationsListReducer } from "./reducers";
+export { ListLocationsContainer } from "./container";

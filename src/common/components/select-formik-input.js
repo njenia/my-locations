@@ -1,20 +1,29 @@
-import React from "react"
+import React from "react";
 
-import Select from './select'
+import Select from "./select";
 
-const SelectFormikInput = ({field, form, options, initialValue, emptyLabel, fullWidth}) => {
+const SelectFormikInput = ({
+  field,
+  form,
+  options,
+  initialValue,
+  emptyLabel,
+  fullWidth
+}) => {
   const handleChange = value => {
-    form.setFieldValue(field.name, value)
-  }
+    form.setFieldValue(field.name, value);
+  };
 
-  return (<Select
-    handleChange={handleChange}
-    name={field.name}
-    options={options}
-    initialValue={initialValue}
-    emptyLabel={emptyLabel}
-    fullWidth={fullWidth}
-  />)
-}
+  return (
+    <Select
+      handleChange={handleChange}
+      name={field.name}
+      options={options}
+      initialValue={initialValue}
+      emptyLabel={emptyLabel}
+      fullWidth={fullWidth}
+    />
+  );
+};
 
-export default SelectFormikInput
+export default SelectFormikInput;

@@ -1,1 +1,1 @@
-export { CategoryDetailsContainer } from './container';
+export { CategoryDetailsContainer } from "./container";

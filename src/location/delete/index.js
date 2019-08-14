@@ -1,1 +1,1 @@
-export { DeleteLocationContainer } from './container';
+export { DeleteLocationContainer } from "./container";
