@@ -89,6 +89,9 @@ const Locations = ({ history, updateActionMenu }) => {
             onFormSubmit={() => {
               history.push(`/locations`);
             }}
+            newCategoryClicked={() => {
+              history.push(`/categories/new`);
+            }}
           />
         )}
       />
