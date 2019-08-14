@@ -1,21 +1,23 @@
 import React, {useEffect} from "react"
-import {withRouter} from "react-router"
 import styled from "styled-components"
 import Map from "../../common/components/map"
 import {createMarkers} from "../../common/utils/map-markers"
+import {Typography} from "@material-ui/core"
 
 
-export const SingleMap = ({history, locationDetails, updateActionMenu}) => {
+export const SingleMap = ({locationDetails, updateActionMenu}) => {
   useEffect(() => {
-    updateActionMenu(locationDetails.name, [
-      {label: "Map", clickHandler: () => history.push(`/locations/map/${locationDetails.id}`), disabled: true},
-      {label: "Details", clickHandler: () => history.push(`/locations/details/${locationDetails.id}`)},
-      {label: "Edit", clickHandler: () => history.push(`/locations/edit/${locationDetails.id}`)},
-      {label: "Delete", clickHandler: () => history.push(`/locations/delete/${locationDetails.id}`)}
-    ])
+    updateActionMenu('locations.oneSelected', {locationId: locationDetails.id})
   }, [])
 
-  return <MapContainer markers={createMarkers([locationDetails])} center={locationDetails.coords}/>;
+  return <React.Fragment>
+    <MapTitleContainer>
+      <Typography variant="h4">
+        {locationDetails.name}
+      </Typography>
+    </MapTitleContainer>
+    <MapContainer markers={createMarkers([locationDetails])} center={locationDetails.coords}/>;
+  </React.Fragment>
 }
 
 const MapContainer = styled(Map)`
@@ -23,4 +25,8 @@ const MapContainer = styled(Map)`
   width: 100%;
 `
 
-export default withRouter(SingleMap)
+const MapTitleContainer = styled.div`
+  margin-bottom: 15px;
+`
+
+export default SingleMap

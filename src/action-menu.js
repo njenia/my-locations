@@ -4,17 +4,19 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import map from 'lodash/map'
+import {withRouter} from "react-router"
+import styled from 'styled-components'
 
-const ActionMenu = ({ title, actions }) => {
-  return ( 
+const ActionMenu = ({ mainActionUrl, presetConfig: {title, actions}, params, history}) => {
+  return (
     <AppBar position="static" color="default">
       <Toolbar>
-        <Typography variant="h6">
+        <MainAction onClick={() => history.push(mainActionUrl)}>
           {title}
-        </Typography>
+        </MainAction>
         {
-          map(actions, ({label, clickHandler, disabled}) => (
-            <Button disabled={disabled} onClick={clickHandler}>
+          map(actions, ({label, getUrl, disabled}) => (
+            <Button disabled={disabled} onClick={() => history.push(getUrl(params))}>
               {label}
             </Button>
           ))
@@ -22,6 +24,12 @@ const ActionMenu = ({ title, actions }) => {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
-export default ActionMenu;
+const MainAction = styled(Typography).attrs({
+  variant: 'h6'
+})`
+  cursor: pointer;
+`
+
+export default withRouter(ActionMenu);

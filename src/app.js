@@ -2,40 +2,43 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {Route, withRouter} from "react-router-dom"
 import {Provider} from 'react-redux'
+import partial from 'lodash/partial'
 
 import MainNavigation from './main-navigation'
 import {Locations} from './location'
 import {Categories} from './category'
 import store from './store'
 import ActionMenu from "./action-menu"
+import locationsActionsMenuPresets from './location/action-menu-presets'
+import categoriesActionsMenuPresets from './category/action-menu-presets'
 
 const App = () => {
-  const [actionsConfig, setActionsConfig] = useState({})
+  const [actionMenuPreset, setActionMenuPreset] = useState({preset: locationsActionsMenuPresets['locations.noneSelected']})
+
+  const getPreset = preset => locationsActionsMenuPresets[preset] || categoriesActionsMenuPresets[preset]
+
+  const updateActionMenu = (mainActionUrl, preset, params) => {
+    setActionMenuPreset({
+      mainActionUrl,
+      preset: getPreset(preset),
+      params
+    })
+  }
 
   return (
     <Provider store={store}>
       <Container>
         <StyledActionMenu>
-          <ActionMenu
-            title={actionsConfig.title}
-            actions={actionsConfig.actions}
+          <ActionMenu presetConfig={actionMenuPreset.preset}
+                      params={actionMenuPreset.params}
+                      mainActionUrl={actionMenuPreset.mainActionUrl}
           />
         </StyledActionMenu>
 
         <StyledPage>
           <PageContentContainer>
-            <Route path="/locations" render={() => <Locations updateActionMenu={(title, actions) => {
-              setActionsConfig({
-                title,
-                actions
-              })
-            }}/>}/>
-            <Route path="/categories" render={() => <Categories updateActionMenu={(title, actions) => {
-              setActionsConfig({
-                title,
-                actions
-              })
-            }}/>}/>
+            <Route path="/locations" render={() => <Locations updateActionMenu={partial(updateActionMenu, '/locations')}/>}/>
+            <Route path="/categories" render={() => <Categories updateActionMenu={partial(updateActionMenu, '/categories')}/>}/>
           </PageContentContainer>
         </StyledPage>
 

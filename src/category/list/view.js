@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import values from 'lodash/mapValues'
 import map from 'lodash/map'
 import isEmpty from 'lodash/isEmpty'
@@ -7,24 +7,32 @@ import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon"
 import List from "@material-ui/core/List/List"
 import ListItem from "@material-ui/core/ListItem/ListItem"
 import CategoryIcon from '@material-ui/icons/Category'
-import {withRouter} from "react-router"
 import Typography from "@material-ui/core/Typography/Typography"
 import NoDataContainer from "../../common/components/no-data-container"
 
-export const ListCategories = ({history, categories, onCategoryClicked, updateActionMenu}) => {
+export const ListCategories = ({categories, onCategoryClicked, updateActionMenu}) => {
   useEffect(() => {
-    updateActionMenu('Categories', [
-      {label: "List", clickHandler: () => history.push('/categories'), disabled: true},
-      {label: "New", clickHandler: () => history.push('/categories/new')}
-    ])
+    updateActionMenu('categories.noneSelected')
   }, [])
+  
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null)
+
+  const onCategorySelected = categoryId => {
+    if (selectedCategoryId === categoryId) {
+      setSelectedCategoryId(null)
+      updateActionMenu('categories.noneSelected')
+    } else {
+      setSelectedCategoryId(categoryId)
+      updateActionMenu('categories.oneSelected', {categoryId: categoryId})
+    }
+  }
   return (
     isEmpty(categories) ?
       <NoDataContainer><Typography variant="h5">No categories yet :(</Typography></NoDataContainer> :
       <List component="nav">
         {
           map(values(categories), category => (
-            <ListItem button key={category.id} onClick={() => onCategoryClicked(category.id)}>
+            <ListItem button selected={category.id === selectedCategoryId} key={category.id} onClick={() => onCategorySelected(category.id)}>
               <ListItemIcon>
                 <CategoryIcon/>
               </ListItemIcon>
@@ -47,4 +55,4 @@ const getCategorySubtitle = ({locationsCount}) => {
   }
 }
 
-export default withRouter(ListCategories)
+export default ListCategories

@@ -5,10 +5,7 @@ import UpsertCategory from "../common/components/upsert-category-view"
 
 export const NewCategory = ({history, upsertCategory, onSubmit, updateActionMenu}) => {
   useEffect(() => {
-    updateActionMenu('Categories', [
-      {label: "List", clickHandler: () => history.push('/categories')},
-      {label: "New", clickHandler: () => history.push('/categories/new'), disabled: true}
-    ])
+    updateActionMenu('categories.noneSelected')
   }, [])
 
   return <UpsertCategory upsertCategory={upsertCategory} onSubmit={data => {

@@ -28,27 +28,22 @@ export const ListLocations = ({
   groupedLocations,
   resetToolbar
 }) => {
-  const generalActionsConfig = [
-    {label: "List", clickHandler: () => history.push('/locations'), disabled: true},
-    {label: "New", clickHandler: () => history.push('/locations/new')}
-  ]
+  const [selectedLocationId, setSelectedLocationId] = useState(null)
+
   useEffect(() => {
-    updateActionMenu('Locations', generalActionsConfig)
+    updateActionMenu('locations.noneSelected')
     return () => {
       resetToolbar()
     }
   }, [])
 
-  const locationSelected = location => {
-    if (location) {
-      updateActionMenu(location.name, [
-        {label: "Details", clickHandler: () => history.push(`/locations/details/${location.id}`)},
-        {label: "Map", clickHandler: () => history.push(`/locations/map/${location.id}`)},
-        {label: "Edit", clickHandler: () => history.push(`/locations/edit/${location.id}`)},
-        {label: "Delete", clickHandler: () => history.push(`/locations/delete/${location.id}`)},
-      ])
+  const onLocationSelected = locationId => {
+    if (selectedLocationId === locationId) {
+      setSelectedLocationId(null)
+      updateActionMenu('locations.noneSelected')
     } else {
-      updateActionMenu('Locations', generalActionsConfig)
+      setSelectedLocationId(locationId)
+      updateActionMenu('locations.oneSelected', {locationId: locationId})
     }
   }
 
@@ -57,8 +52,24 @@ export const ListLocations = ({
   }
 
   const nonGroupedView = (isEmpty(locations) && categoryFilter) ?
-    <Typography variant="body1">No locations in this filter</Typography> :
-    <LocationsList locations={locations} onLocationSelected={locationSelected} showCategoryLabel/>
+    <Typography variantf="body1">No locations in this filter</Typography> :
+    <LocationsList locations={locations}
+                   onLocationSelected={onLocationSelected}
+                   showCategoryLabel
+                   selectedLocationId={selectedLocationId}
+    />
+
+  const groupedView = map(toPairs(groupedLocations), ([categoryName, categoryLocations]) => (
+    <React.Fragment>
+      <Typography variant="h6">
+        {categoryName}
+      </Typography>
+      <LocationsList locations={categoryLocations}
+                     onLocationSelected={onLocationSelected}
+                     selectedLocationId={selectedLocationId}
+      />
+    </React.Fragment>
+  ));
 
   return (
     <React.Fragment>
@@ -72,34 +83,19 @@ export const ListLocations = ({
       {
         isEmpty(groupedLocations) ?
           nonGroupedView :
-          map(toPairs(groupedLocations), ([categoryName, categoryLocations]) => (
-            <React.Fragment>
-              <Typography variant="h6">
-                {categoryName}
-              </Typography>
-              <LocationsList locations={categoryLocations} onLocationSelected={locationSelected}/>
-            </React.Fragment>
-          ))
+          groupedView
       }
     </React.Fragment>
   )
 }
 
-const LocationsList = ({locations, onLocationSelected, showCategoryLabel}) => {
-  const [selectedId, setSelectedId] = useState(null)
+const LocationsList = ({locations, selectedLocationId, onLocationSelected, showCategoryLabel}) => {
   return (
     <List component="nav">
       {
         map(values(locations), location => (
-          <ListItem button selected={location.id === selectedId} key={location.id} onClick={() => {
-            if (selectedId === location.id) {
-              setSelectedId(null)
-              onLocationSelected(null)
-            } else {
-              setSelectedId(location.id)
-              onLocationSelected(location)
-            }
-          }}>
+          <ListItem button selected={location.id === selectedLocationId} key={location.id}
+                    onClick={() => onLocationSelected(location.id)}>
             <ListItemIcon>
               <LocationOnIcon/>
             </ListItemIcon>

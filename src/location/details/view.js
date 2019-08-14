@@ -7,12 +7,7 @@ import { EntityTitle, EntityDetail } from "../../common/components/entity-detail
 
 export const LocationDetails = ({history, locationDetails, updateActionMenu}) => {
   useEffect(() => {
-    updateActionMenu(locationDetails.name, [
-      {label: "Map", clickHandler: () => history.push(`/locations/map/${locationDetails.id}`)},
-      {label: "Details", clickHandler: () => history.push(`/locations/details/${locationDetails.id}`), disabled: true},
-      {label: "Edit", clickHandler: () => history.push(`/locations/edit/${locationDetails.id}`)},
-      {label: "Delete", clickHandler: () => history.push(`/locations/delete/${locationDetails.id}`)}
-    ])
+    updateActionMenu('locations.oneSelected', {locationId: locationDetails.id})
   }, [])
 
   return (

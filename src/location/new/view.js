@@ -1,14 +1,10 @@
 import React, {useEffect} from "react"
-import {withRouter} from "react-router"
 
 import UpsertLocation from "../common/components/upsert-location-view"
 
-export const NewLocation = ({history, categoryOptions, upsertLocation, onFormSubmit, updateActionMenu}) => {
+export const NewLocation = ({categoryOptions, upsertLocation, onFormSubmit, updateActionMenu}) => {
   useEffect(() => {
-    updateActionMenu('Locations', [
-      {label: "List", clickHandler: () => history.push('/locations')},
-      {label: "New", clickHandler: () => history.push('/locations/new'), disabled: true}
-    ])
+    updateActionMenu('locations.noneSelected')
   }, [])
 
   return <UpsertLocation categoryOptions={categoryOptions} onSubmit={data => {
@@ -17,4 +13,4 @@ export const NewLocation = ({history, categoryOptions, upsertLocation, onFormSub
   }}/>
 }
 
-export default withRouter(NewLocation)
+export default NewLocation
