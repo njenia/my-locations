@@ -19,11 +19,12 @@ const ActionMenu = ({
         <MainAction onClick={() => history.push(mainActionUrl)}>
           {title}
         </MainAction>
-        {map(actions, ({ label, getUrl, disabled }) => (
+        {map(actions, ({ Icon, label, getUrl, disabled }) => (
           <Button
             disabled={disabled}
             onClick={() => history.push(getUrl(params))}
           >
+            {Icon && <Icon/>}
             {label}
           </Button>
         ))}

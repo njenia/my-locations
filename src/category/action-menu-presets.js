@@ -1,21 +1,30 @@
+import AddIcon from '@material-ui/icons/Add'
+import ListIcon from '@material-ui/icons/List'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
+
 const newActionConfig = {
   getUrl: () => "/categories/new",
-  label: "New"
+  label: "New",
+  Icon: AddIcon
 };
 
 const detailsActionConfig = {
   getUrl: ({ categoryId }) => `/categories/details/${categoryId}`,
-  label: "Details"
+  label: "Details",
+  Icon: ListIcon
 };
 
 const editActionConfig = {
   getUrl: ({ categoryId }) => `/categories/edit/${categoryId}`,
-  label: "Edit"
+  label: "Edit",
+  Icon: EditIcon
 };
 
 const deleteActionConfig = {
   getUrl: ({ categoryId }) => `/categories/delete/${categoryId}`,
-  label: "Delete"
+  label: "Delete",
+  Icon: DeleteIcon
 };
 
 const disabled = config => ({
